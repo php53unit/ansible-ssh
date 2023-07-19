@@ -92,4 +92,4 @@ command = ' '.join(ssh_args)
 print ("executing {}".format(command))
 
 #os.system("{}".format(command))
-subprocess.run("env; pwd; {}".format("ssh -o ControlMaster=auto -o ControlPersist=3600s -o PreferredAuthentications=publickey -J debian@51.250.100.206 -i None -l user 172.20.102.183"), shell=True)
+subprocess.run("env; pwd; {}".format(command), shell=True)
