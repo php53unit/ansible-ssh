@@ -92,4 +92,4 @@ command = ' '.join(ssh_args)
 print ("executing {}".format(command))
 
 #os.system("{}".format(command))
-subprocess.Popen("/bin/bash -c '{}'".format(command), shell=True)
+call(command, shell=True)
