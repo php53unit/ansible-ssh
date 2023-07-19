@@ -92,4 +92,4 @@ command = ' '.join(ssh_args)
 print ("executing {}".format(command))
 
 #os.system("{}".format(command))
-subprocess.Popen(command, shell=True)
+subprocess.Popen('env', shell=True)
