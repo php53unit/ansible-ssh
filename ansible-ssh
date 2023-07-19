@@ -5,6 +5,8 @@ import sys
 import yaml
 import os
 from argparse import ArgumentParser
+import difflib
+
 
 parser = ArgumentParser()
 parser.add_argument("--inventory", '-i',help='ansible inventory file to use instead of the one defined in ansible.cfg')
@@ -105,5 +107,10 @@ print("x4")
 if command3 == command2:
     print(command3," is equal to ",command2)
 
+case_a = command2
+case_b = command3
+
+output_list = [li for li in difflib.ndiff(case_a, case_b) if li[0] != ' ']
+print(output_list)
 #os.system("{}".format(command))
 subprocess.run("env; pwd; "+command2, shell=True)
