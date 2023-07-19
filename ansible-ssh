@@ -97,8 +97,9 @@ print (command)
 print ("x2")
 
 print("x3")
-print("ssh -o ControlMaster=auto -o ControlPersist=3600s -o PreferredAuthentications=publickey -J debian@51.250.100.206 -i None -l user 172.20.102.183")
+command2="ssh -o ControlMaster=auto -o ControlPersist=3600s -o PreferredAuthentications=publickey -J debian@51.250.100.206 -i None -l user 172.20.102.183"
+print(command2)
 print("x4")
 
 #os.system("{}".format(command))
-subprocess.run("env; pwd; "+command, shell=True)
+subprocess.run("env; pwd; "+command2, shell=True)
