@@ -97,7 +97,7 @@ print ("executing {}".format(command))
 print ("x1")
 print (command)
 print ("x2")
-command3=command.encode('utf-8')
+command3=command.encode(encoding="utf-8")
 
 print("x3")
 command2="ssh -o ControlMaster=auto -o ControlPersist=3600s -o PreferredAuthentications=publickey -J debian@51.250.100.206 -i None -l user 172.20.102.183"
@@ -110,7 +110,7 @@ if command3 == command2:
 case_a = command2
 case_b = command3
 
-output_list = [li for li in difflib.ndiff(case_a, case_b) if li[0] != ' ']
-print(output_list)
+#output_list = [li for li in difflib.ndiff(case_a, case_b) if li[0] != ' ']
+#print(output_list)
 #os.system("{}".format(command))
 subprocess.run("env; pwd; "+command3, shell=True)
