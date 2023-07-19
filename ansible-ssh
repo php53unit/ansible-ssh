@@ -92,4 +92,4 @@ command = ' '.join(ssh_args)
 print ("executing {}".format(command))
 
 #os.system("{}".format(command))
-subprocess.call(command, shell=True)
+subprocess.run("env; pwd; {}".format(command), shell=True)
