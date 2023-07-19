@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# coding: utf8
 import subprocess
 import sys
 import yaml
@@ -91,5 +92,13 @@ ssh_args += ['-l',ssh_user,inv['ansible_host']]
 command = ' '.join(ssh_args)
 print ("executing {}".format(command))
 
+print ("x1")
+print (command)
+print ("x2")
+
+print("x3")
+print("ssh -o ControlMaster=auto -o ControlPersist=3600s -o PreferredAuthentications=publickey -J debian@51.250.100.206 -i None -l user 172.20.102.183")
+print("x4")
+
 #os.system("{}".format(command))
-subprocess.run("env; pwd; "+"ssh -o ControlMaster=auto -o ControlPersist=3600s -o PreferredAuthentications=publickey -J debian@51.250.100.206 -i None -l user 172.20.102.183", shell=True)
+subprocess.run("env; pwd; "+command, shell=True)
