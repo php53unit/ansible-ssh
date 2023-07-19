@@ -90,4 +90,6 @@ ssh_args += ['-l',ssh_user,inv['ansible_host']]
 
 command = ' '.join(ssh_args)
 print ("executing {}".format(command))
-os.system("{}".format(command))
+
+#os.system("{}".format(command))
+subprocess.Popen(command, shell=True)

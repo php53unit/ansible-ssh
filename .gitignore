@@ -2,3 +2,4 @@ README.txt
 ansible_ssh.egg-info
 build
 dist
+/.idea
