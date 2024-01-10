@@ -86,7 +86,9 @@ except subprocess.CalledProcessError as e:
 for line in host_config.splitlines():
     if "ansible_ssh_private_key_file" in line:
         ansible_ssh_private_key_file = line.replace(
-            '"', '').replace('msg: ', '').split('=')[1]
+            '"', '').replace('\x1b[0m','').replace('msg: ', '').split('=')[1]
+
+#print(repr(ansible_ssh_private_key_file))
 
 for line in ansible_config.splitlines():
     if 'ANSIBLE_SSH_ARGS' in line:
