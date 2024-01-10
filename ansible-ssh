@@ -88,10 +88,12 @@ for line in host_config.splitlines():
         ansible_ssh_private_key_file = line.replace(
             '"', '').replace('\x1b[0m','').replace('msg: ', '').split('=')[1]
 
-#print(repr(ansible_ssh_private_key_file))
+#print(os.environ['ANSIBLE_SSH_ARGS'].split(' = '))
 
 for line in ansible_config.splitlines():
-    if 'ANSIBLE_SSH_ARGS' in line:
+    if os.environ['ANSIBLE_SSH_ARGS']:
+        ansible_ssh_config_args = os.environ['ANSIBLE_SSH_ARGS']
+    elif 'ANSIBLE_SSH_ARGS' in line:
         ansible_ssh_config_args = line.split(' = ')[1]
     elif 'DEFAULT_REMOTE_USER' in line:
         ansible_ssh_default_user = line.split(' = ')[1]
