@@ -98,8 +98,10 @@ for line in ansible_config.splitlines():
     elif 'DEFAULT_REMOTE_USER' in line:
         ansible_ssh_default_user = line.split(' = ')[1]
     elif 'DEFAULT_PRIVATE_KEY_FILE' in line and not line.endswith('None'):
-        ansible_ssh_default_keyfile = line.split(' = ')[1]
+        ansible_ssh_default_keyfile = line.split(' = ')[1].replace('\x1b[0m','')
 ssh_args += [ansible_ssh_config_args]
+
+
 
 if 'ansible_ssh_common_args' in inv:
     ssh_args += [inv['ansible_ssh_common_args']]
@@ -115,18 +117,19 @@ if args.user:
     ssh_user = args.user
 if args.become:
     ssh_user = 'root'
-if args.keyfile:
+if args.keyfile and (args.keyfile!='None'):
     ssh_args += ['-i', args.keyfile]
-elif ansible_ssh_private_key_file:
+elif ansible_ssh_private_key_file and (ansible_ssh_private_key_file!='None'):
     ssh_args += ['-i', ansible_ssh_private_key_file]
-elif ansible_ssh_default_keyfile:
+elif ansible_ssh_default_keyfile and (ansible_ssh_default_keyfile!='None'):
     ssh_args += ['-i', ansible_ssh_default_keyfile]
 ssh_args += ['-l', ssh_user, inv['ansible_host']]
 
 command = ' '.join(ssh_args)
 
-print ("executing {}".format(command))
-
-command3=strip_ansi(command)
-
-subprocess.run(command3, shell=True)
+if os.environ['ANSIBLE_SSH_NOOP']:
+    print ("{}".format(command))
+else:
+    print ("executing {}".format(command))
+    command3=strip_ansi(command)
+    subprocess.run(command3, shell=True)
