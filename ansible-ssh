@@ -123,9 +123,14 @@ elif ansible_ssh_private_key_file and (ansible_ssh_private_key_file!='None'):
     ssh_args += ['-i', ansible_ssh_private_key_file]
 elif ansible_ssh_default_keyfile and (ansible_ssh_default_keyfile!='None'):
     ssh_args += ['-i', ansible_ssh_default_keyfile]
-ssh_args += ['-l', ssh_user, inv['ansible_host']]
+ssh_args += ['-l', ssh_user]
+if 'ansible_host' in inv:
+    ssh_args += inv['ansible_host']]
 
-command = ' '.join(ssh_args)
+if 'ansible_connection' in inv and inv['ansible_connection']=='local':
+    command = ''
+else:
+    command = ' '.join(ssh_args)
 
 if os.environ['ANSIBLE_SSH_NOOP']:
     print ("{}".format(command))
